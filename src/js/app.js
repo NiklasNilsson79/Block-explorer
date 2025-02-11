@@ -2,6 +2,7 @@ import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.m
 
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:7545'); // Ganache RPC URL
 
+// 🔹 Hämta Ethereum-saldo för en adress
 const getBalance = async () => {
   const addressInput = document.getElementById('address').value;
   const balanceElement = document.getElementById('balance');
@@ -21,7 +22,7 @@ const getBalance = async () => {
   }
 };
 
-// Skicka en transaktion
+// 🔹 Skicka en transaktion från rätt konto
 const sendTransaction = async () => {
   const sender = document.getElementById('sender').value;
   const receiver = document.getElementById('receiver').value;
@@ -34,19 +35,33 @@ const sendTransaction = async () => {
   }
 
   try {
-    // Skapa en signer från avsändaradressen
-    const signer = new ethers.Wallet(
-      '0x3a6ebf6472171368c4f84d04becae7d25970886befed933eef1d975f582f935d',
-      provider
-    ); // Använd en privat nyckel från Ganache
+    // 🔹 Hämta alla konton från Ganache
+    const signers = await provider.listAccounts(); // Returnerar signer-objekt
+    const accounts = signers.map((signer) => signer.address.toLowerCase()); // Extrahera adresser
 
-    // Skapa transaktionen
+    // 🔹 Kontrollera att avsändaren finns i listan
+    if (!accounts.includes(sender.toLowerCase())) {
+      statusElement.innerText = '❌ Avsändaradressen finns inte i Ganache!';
+      return;
+    }
+
+    // 🔹 Hitta rätt signer från listan
+    const signer = signers.find(
+      (signer) => signer.address.toLowerCase() === sender.toLowerCase()
+    );
+
+    if (!signer) {
+      statusElement.innerText = '❌ Kunde inte skapa signer!';
+      return;
+    }
+
+    // 🔹 Skapa transaktionen
     const tx = {
       to: receiver,
       value: ethers.parseEther(amount),
     };
 
-    // Skicka transaktionen
+    // 🔹 Skicka transaktionen
     const transaction = await signer.sendTransaction(tx);
     statusElement.innerText = '⏳ Skickar transaktion... Vänta...';
 
@@ -59,11 +74,15 @@ const sendTransaction = async () => {
   }
 };
 
+// 🔹 Initiera appen och koppla knappar till funktioner
 const initApp = () => {
   document.getElementById('getBalance').addEventListener('click', getBalance);
   document
     .getElementById('sendTransaction')
     .addEventListener('click', sendTransaction);
 };
+
+// 🚀 Se till att sidan har laddats innan initieras
+document.addEventListener('DOMContentLoaded', initApp);
 
 export { initApp };
