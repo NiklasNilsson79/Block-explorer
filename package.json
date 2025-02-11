@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Detta projekt är en frontend-applikation som konsumerar en Ethereum-blockkedja. Applikationen gör det möjligt att:",
   "type": "module",
-  "main": "testConnection.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
