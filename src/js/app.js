@@ -22,6 +22,19 @@ const getBalance = async () => {
   }
 };
 
+// 🔹 Hämta antalet block i blockchainen
+const getBlockCount = async () => {
+  const blockElement = document.getElementById('blockCount');
+
+  try {
+    const blockNumber = await provider.getBlockNumber();
+    blockElement.innerText = `📦 Antal block i nätverket: ${blockNumber}`;
+  } catch (error) {
+    blockElement.innerText = '❌ Fel vid hämtning av blocknummer!';
+    console.error('Fel vid hämtning av blocknummer:', error);
+  }
+};
+
 // 🔹 Skicka en transaktion från rätt konto
 const sendTransaction = async () => {
   const sender = document.getElementById('sender').value;
@@ -80,6 +93,9 @@ const initApp = () => {
   document
     .getElementById('sendTransaction')
     .addEventListener('click', sendTransaction);
+  document
+    .getElementById('getBlockCount')
+    .addEventListener('click', getBlockCount);
 };
 
 // 🚀 Se till att sidan har laddats innan initieras
