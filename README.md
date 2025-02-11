@@ -1,4 +1,4 @@
-Ethereum Block Explorer
+#Block Explorer
 
 Detta projekt är en frontend-applikation som konsumerar en Ethereum-blockkedja. Applikationen gör det möjligt att:
 
