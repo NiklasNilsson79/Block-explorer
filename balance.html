@@ -3,12 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ethereum Block Explorer</title>
+    <title>Hämta Saldo</title>
     <link rel="stylesheet" href="/src/css/styles.css" />
     <script type="module" src="/src/js/nav.js" defer></script>
   </head>
   <body>
-    <!-- Navigationsmeny -->
     <nav>
       <div class="nav-container">
         <a href="index.html" class="logo">Block Explorer</a>
@@ -22,8 +21,12 @@
     </nav>
 
     <div class="container">
-      <h1>Välkommen till Ethereum Block Explorer</h1>
-      <p>Använd menyn ovan för att navigera mellan sidor.</p>
+      <h1>Hämta Saldo</h1>
+      <input type="text" id="address" placeholder="Ethereum-adress" />
+      <button id="getBalance">Hämta Saldo</button>
+      <p id="balance"></p>
     </div>
+
+    <script type="module" src="js/balance.js"></script>
   </body>
 </html>

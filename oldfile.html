@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Block Explorer</title>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <script type="module" src="/src/js/index.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="index.html" class="logo">Block Explorer</a>
+        <ul class="nav-links">
+          <li><a href="balance.html">Saldo</a></li>
+          <li><a href="transactions.html">Transaktioner</a></li>
+          <li><a href="blocks.html">Block</a></li>
+        </ul>
+        <div class="menu-toggle">&#9776;</div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Block Explorer</h1>
+
+      <h2>Hämta Saldo</h2>
+      <input type="text" id="address" placeholder="Ethereum-adress" />
+      <button id="getBalance">Hämta Saldo</button>
+      <p id="balance"></p>
+
+      <h2>Skicka Transaktion</h2>
+      <input type="text" id="sender" placeholder="Avsändaradress" />
+      <input type="text" id="receiver" placeholder="Mottagaradress" />
+      <input type="text" id="amount" placeholder="Belopp i ETH" />
+      <button id="sendTransaction">Skicka</button>
+      <p id="transactionStatus"></p>
+
+      <h2>Hämta Antal Block</h2>
+      <button id="getBlockCount">Hämta antal block</button>
+      <p id="blockCount"></p>
+    </div>
+  </body>
+</html>
