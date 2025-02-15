@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skicka Ethereum</title>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <script type="module" src="./src/js/transactions.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="index.html" class="logo">Block Explorer</a>
+        <ul class="nav-links">
+          <li><a href="balance.html">Saldo</a></li>
+          <li><a href="transactions.html">Transaktioner</a></li>
+          <li><a href="blocks.html">Block</a></li>
+        </ul>
+        <div class="menu-toggle">&#9776;</div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Skicka Ethereum</h1>
+      <p>
+        Fyll i avsändaradress, mottagaradress och belopp för att skicka en
+        transaktion.
+      </p>
+
+      <form id="transaction-form">
+        <input type="text" id="from" placeholder="Avsändaradress" required />
+        <input type="text" id="to" placeholder="Mottagaradress" required />
+        <input type="number" id="value" placeholder="Belopp i ETH" required />
+        <button type="submit">Skicka</button>
+      </form>
+
+      <p id="transactionStatus"></p>
+    </div>
+  </body>
+</html>
