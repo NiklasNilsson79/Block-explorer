@@ -6,6 +6,7 @@
     <title>Skicka Ethereum</title>
     <link rel="stylesheet" href="./src/css/styles.css" />
     <script type="module" src="./src/js/transactions.js" defer></script>
+    <script type="module" src="/src/js/nav.js" defer></script>
   </head>
   <body>
     <nav>
@@ -21,7 +22,7 @@
     </nav>
 
     <div class="container">
-      <h1>Skicka Ethereum</h1>
+      <h1 class="send-eth">Skicka Ethereum</h1>
       <p>
         Fyll i avsändaradress, mottagaradress och belopp för att skicka en
         transaktion.
@@ -31,10 +32,13 @@
         <input type="text" id="from" placeholder="Avsändaradress" required />
         <input type="text" id="to" placeholder="Mottagaradress" required />
         <input type="number" id="value" placeholder="Belopp i ETH" required />
-        <button type="submit">Skicka</button>
+        <button class="send-button" type="submit">Skicka</button>
       </form>
 
       <p id="transactionStatus"></p>
     </div>
+    <footer>
+      <p>© 2025 Block Explorer. All rights reserved.</p>
+    </footer>
   </body>
 </html>

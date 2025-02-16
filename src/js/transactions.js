@@ -1,5 +1,6 @@
 import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.min.js';
 import { createWallet } from '../helpers/explorer.js';
+import { initApp } from './app.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Appen är initierad!');

@@ -33,9 +33,7 @@ const listBlocks = async () => {
           `⏳ Tid: ${new Date(block.timestamp * 1000).toLocaleString()}`
         )
       );
-      blockDiv.appendChild(
-        createTextElement('p', `🔗 Hash: ${block.hash.substring(0, 10)}...`)
-      );
+      blockDiv.appendChild(createTextElement('p', `🔗 Hash: ${block.hash}`));
       blockDiv.appendChild(
         createTextElement('p', `⛽ Gasgräns: ${block.gasLimit}`)
       );
