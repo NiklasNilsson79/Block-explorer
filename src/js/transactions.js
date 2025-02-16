@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // 🔹 Hämta signer för avsändaren automatiskt
+      // Hämta signer för avsändaren automatiskt
       const signer = await createWallet(sender);
 
-      // 🔹 Skapa transaktionen
+      // Skapa transaktionen
       const tx = {
         to: receiver,
         value: ethers.parseEther(amount),
       };
 
-      // 🔹 Skicka transaktionen
+      // Skicka transaktionen
       const transaction = await signer.sendTransaction(tx);
       statusElement.innerText = '⏳ Skickar transaktion... Vänta...';
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       statusElement.innerText = `✅ Transaktion genomförd! TX-hash: ${transaction.hash}`;
       console.log('Transaktion skickad:', transaction);
 
-      // 🔹 Skicka användaren till blocks.html
+      // Skicka användaren till blocks.html
       location.href = './blocks.html';
     } catch (error) {
       statusElement.innerText = '❌ Fel vid transaktion!';

@@ -35,10 +35,10 @@ const listBlocks = async () => {
       );
       blockDiv.appendChild(createTextElement('p', `🔗 Hash: ${block.hash}`));
       blockDiv.appendChild(
-        createTextElement('p', `⛽ Gasgräns: ${block.gasLimit}`)
+        createTextElement('p', `⛽ Gas limit: ${block.gasLimit}`)
       );
       blockDiv.appendChild(
-        createTextElement('p', `🔥 Gasanvändning: ${block.gasUsed}`)
+        createTextElement('p', `🔥 Gas used: ${block.gasUsed}`)
       );
 
       blockList.appendChild(blockDiv);
