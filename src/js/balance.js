@@ -13,7 +13,10 @@ const getBalance = async () => {
 
   try {
     const balance = await provider.getBalance(addressInput);
-    balanceElement.innerText = `💰 ${ethers.formatEther(balance)} ETH`;
+    const balanceInEther = ethers.formatEther(balance);
+    balanceElement.innerText = `💰 ${parseFloat(balanceInEther).toFixed(
+      2
+    )} ETH`;
   } catch (error) {
     balanceElement.innerText = '❌ Fel: Kontrollera adressen!';
     console.error('Fel vid hämtning av saldo:', error);
