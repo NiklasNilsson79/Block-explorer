@@ -1,57 +1,77 @@
 import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.min.js';
 import { createWallet } from '../helpers/explorer.js';
-import { initApp } from './app.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Appen är initierad!');
+class TransactionHandler {
+  constructor(formSelector, statusSelector) {
+    this.form = document.querySelector(formSelector);
+    this.statusElement = document.querySelector(statusSelector);
 
-  const form = document.querySelector('#transaction-form');
-  const fromInput = document.querySelector('#from');
-  const toInput = document.querySelector('#to');
-  const valueInput = document.querySelector('#value');
-  const statusElement = document.querySelector('#transactionStatus');
+    if (!this.form) {
+      console.error(`❌ Formuläret ${formSelector} hittades inte!`);
+      return;
+    }
 
-  if (!form) {
-    console.error('❌ Formuläret #transaction-form hittades inte!');
-    return;
+    // Hämta inputfält
+    this.fromInput = this.form.querySelector('#from');
+    this.toInput = this.form.querySelector('#to');
+    this.valueInput = this.form.querySelector('#value');
+
+    // Bind eventlyssnare
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Förhindra att sidan laddas om
-    console.log('Skapar transaktion...');
+  async handleSubmit(event) {
+    event.preventDefault(); // Förhindra att sidan laddas om
+    console.log('⏳ Skapar transaktion...');
 
-    const sender = fromInput.value.trim();
-    const receiver = toInput.value.trim();
-    const amount = valueInput.value.trim();
+    const sender = this.fromInput?.value.trim();
+    const receiver = this.toInput?.value.trim();
+    const amount = this.valueInput?.value.trim();
 
     if (!sender || !receiver || !amount) {
-      statusElement.innerText = '❌ Fyll i alla fält!';
+      this.updateStatus('❌ Fyll i alla fält!');
       return;
     }
 
     try {
-      // Hämta signer för avsändaren automatiskt
+      // Skapa signer för avsändaren
       const signer = await createWallet(sender);
+      if (!signer) {
+        throw new Error('Signer kunde inte skapas.');
+      }
 
-      // Skapa transaktionen
-      const tx = {
+      // Skapa och skicka transaktionen
+      const transaction = await signer.sendTransaction({
         to: receiver,
         value: ethers.parseEther(amount),
-      };
+      });
 
-      // Skicka transaktionen
-      const transaction = await signer.sendTransaction(tx);
-      statusElement.innerText = '⏳ Skickar transaktion... Vänta...';
-
+      this.updateStatus('⏳ Skickar transaktion... Vänta...');
       await transaction.wait();
-      statusElement.innerText = `✅ Transaktion genomförd! TX-hash: ${transaction.hash}`;
-      console.log('Transaktion skickad:', transaction);
 
-      // Skicka användaren till blocks.html
-      location.href = './blocks.html';
+      this.updateStatus(
+        `✅ Transaktion genomförd! TX-hash: ${transaction.hash}`
+      );
+      console.log('✅ Transaktion skickad:', transaction);
+
+      // Skicka användaren till blocks.html efter lyckad transaktion
+      setTimeout(() => {
+        location.href = './blocks.html';
+      }, 2000);
     } catch (error) {
-      statusElement.innerText = '❌ Fel vid transaktion!';
-      console.error('Fel vid transaktion:', error);
+      this.updateStatus('❌ Fel vid transaktion!');
+      console.error('❌ Fel vid transaktion:', error);
     }
-  });
+  }
+
+  updateStatus(message) {
+    if (this.statusElement) {
+      this.statusElement.innerText = message;
+    }
+  }
+}
+
+// Initiera transaktionshanteraren när sidan laddas
+document.addEventListener('DOMContentLoaded', () => {
+  new TransactionHandler('#transaction-form', '#transactionStatus');
 });
