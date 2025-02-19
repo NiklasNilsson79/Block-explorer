@@ -1,26 +1,53 @@
 import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.min.js';
 
-const provider = new ethers.JsonRpcProvider('http://127.0.0.1:7545'); // Anslut till Ganache
+class BalanceChecker {
+  constructor(providerUrl) {
+    this.provider = new ethers.JsonRpcProvider(providerUrl);
+    this.addressInput = document.getElementById('address');
+    this.balanceElement = document.getElementById('balance');
+    this.getBalanceButton = document.getElementById('getBalance');
 
-const getBalance = async () => {
-  const addressInput = document.getElementById('address').value;
-  const balanceElement = document.getElementById('balance');
+    if (!this.addressInput || !this.balanceElement || !this.getBalanceButton) {
+      console.error(
+        '❌ Ett eller flera HTML-element saknas! Kontrollera balance.html.'
+      );
+      return;
+    }
 
-  if (!addressInput) {
-    balanceElement.innerText = '❌ Ange en Ethereum-adress!';
-    return;
+    this.getBalanceButton.addEventListener('click', () => this.getBalance());
   }
 
-  try {
-    const balance = await provider.getBalance(addressInput);
-    const balanceInEther = ethers.formatEther(balance);
-    balanceElement.innerText = `💰 ${parseFloat(balanceInEther).toFixed(
-      2
-    )} ETH`;
-  } catch (error) {
-    balanceElement.innerText = '❌ Fel: Kontrollera adressen!';
-    console.error('Fel vid hämtning av saldo:', error);
-  }
-};
+  async getBalance() {
+    const address = this.addressInput.value.trim();
 
-document.getElementById('getBalance').addEventListener('click', getBalance);
+    if (!address) {
+      this.updateBalanceStatus('❌ Ange en Ethereum-adress!');
+      return;
+    }
+
+    if (!ethers.isAddress(address)) {
+      this.updateBalanceStatus('❌ Ogiltig Ethereum-adress!');
+      return;
+    }
+
+    try {
+      const balance = await this.provider.getBalance(address);
+      const balanceInEther = parseFloat(ethers.formatEther(balance)).toFixed(2);
+      this.updateBalanceStatus(`💰 ${balanceInEther} ETH`);
+    } catch (error) {
+      this.updateBalanceStatus('❌ Fel: Kontrollera adressen!');
+      console.error('❌ Fel vid hämtning av saldo:', error);
+    }
+  }
+
+  updateBalanceStatus(message) {
+    if (this.balanceElement) {
+      this.balanceElement.innerText = message;
+    }
+  }
+}
+
+// Initiera balance checker när sidan laddas
+document.addEventListener('DOMContentLoaded', () => {
+  new BalanceChecker('http://127.0.0.1:7545');
+});
