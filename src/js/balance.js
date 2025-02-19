@@ -9,7 +9,7 @@ class BalanceChecker {
 
     if (!this.addressInput || !this.balanceElement || !this.getBalanceButton) {
       console.error(
-        '❌ Ett eller flera HTML-element saknas! Kontrollera balance.html.'
+        'Ett eller flera HTML-element saknas! Kontrollera balance.html.'
       );
       return;
     }
@@ -21,12 +21,12 @@ class BalanceChecker {
     const address = this.addressInput.value.trim();
 
     if (!address) {
-      this.updateBalanceStatus('❌ Ange en Ethereum-adress!');
+      this.updateBalanceStatus('Ange en Ethereum-adress!');
       return;
     }
 
     if (!ethers.isAddress(address)) {
-      this.updateBalanceStatus('❌ Ogiltig Ethereum-adress!');
+      this.updateBalanceStatus('Ogiltig Ethereum-adress!');
       return;
     }
 
@@ -35,8 +35,8 @@ class BalanceChecker {
       const balanceInEther = parseFloat(ethers.formatEther(balance)).toFixed(2);
       this.updateBalanceStatus(`💰 ${balanceInEther} ETH`);
     } catch (error) {
-      this.updateBalanceStatus('❌ Fel: Kontrollera adressen!');
-      console.error('❌ Fel vid hämtning av saldo:', error);
+      this.updateBalanceStatus('Fel: Kontrollera adressen!');
+      console.error('Fel vid hämtning av saldo:', error);
     }
   }
 

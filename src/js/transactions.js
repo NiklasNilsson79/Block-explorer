@@ -1,5 +1,5 @@
 import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.min.js';
-import { createWallet } from '../helpers/explorer.js';
+import { blockchainClient } from '../helpers/explorer.js';
 
 class TransactionHandler {
   constructor(formSelector, statusSelector) {
@@ -29,15 +29,16 @@ class TransactionHandler {
     const amount = this.valueInput?.value.trim();
 
     if (!sender || !receiver || !amount) {
-      this.updateStatus('❌ Fyll i alla fält!');
+      this.updateStatus('Fyll i alla fält!');
       return;
     }
 
     try {
       // Skapa signer för avsändaren
-      const signer = await createWallet(sender);
+      const signer = await blockchainClient.getSigner(sender);
       if (!signer) {
-        throw new Error('Signer kunde inte skapas.');
+        console.error('Kunde inte skapa signer.');
+        return;
       }
 
       // Skapa och skicka transaktionen
@@ -52,15 +53,15 @@ class TransactionHandler {
       this.updateStatus(
         `✅ Transaktion genomförd! TX-hash: ${transaction.hash}`
       );
-      console.log('✅ Transaktion skickad:', transaction);
+      console.log('Transaktion skickad:', transaction);
 
       // Skicka användaren till blocks.html efter lyckad transaktion
       setTimeout(() => {
         location.href = './blocks.html';
       }, 2000);
     } catch (error) {
-      this.updateStatus('❌ Fel vid transaktion!');
-      console.error('❌ Fel vid transaktion:', error);
+      this.updateStatus('Fel vid transaktion!');
+      console.error('Fel vid transaktion:', error);
     }
   }
 

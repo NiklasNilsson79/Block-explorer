@@ -11,7 +11,7 @@ class BlockchainExplorer {
     const balanceElement = document.getElementById('balance');
 
     if (!addressInput) {
-      balanceElement.innerText = '❌ Ange en Ethereum-adress!';
+      balanceElement.innerText = 'Ange en Ethereum-adress!';
       return;
     }
 
@@ -20,7 +20,7 @@ class BlockchainExplorer {
       const balanceInEther = ethers.formatEther(balance);
       balanceElement.innerText = `💰 ${balanceInEther} ETH`;
     } catch (error) {
-      balanceElement.innerText = '❌ Fel: Kontrollera adressen!';
+      balanceElement.innerText = 'Fel: Kontrollera adressen!';
       console.error('Fel vid hämtning av saldo:', error);
     }
   }
@@ -33,7 +33,7 @@ class BlockchainExplorer {
       const blockNumber = await this.provider.getBlockNumber();
       blockElement.innerText = `📦 Antal block i nätverket: ${blockNumber}`;
     } catch (error) {
-      blockElement.innerText = '❌ Fel vid hämtning av blocknummer!';
+      blockElement.innerText = 'Fel vid hämtning av blocknummer!';
       console.error('Fel vid hämtning av blocknummer:', error);
     }
   }
@@ -46,7 +46,7 @@ class BlockchainExplorer {
     const statusElement = document.getElementById('transactionStatus');
 
     if (!sender || !receiver || !amount) {
-      statusElement.innerText = '❌ Fyll i alla fält!';
+      statusElement.innerText = 'Fyll i alla fält!';
       return;
     }
 
@@ -57,7 +57,7 @@ class BlockchainExplorer {
 
       // Kontrollera att avsändaren finns i listan
       if (!accounts.includes(sender.toLowerCase())) {
-        statusElement.innerText = '❌ Avsändaradressen finns inte i Ganache!';
+        statusElement.innerText = 'Avsändaradressen finns inte i Ganache!';
         return;
       }
 
@@ -67,7 +67,7 @@ class BlockchainExplorer {
       );
 
       if (!signer) {
-        statusElement.innerText = '❌ Kunde inte skapa signer!';
+        statusElement.innerText = 'Kunde inte skapa signer!';
         return;
       }
 
@@ -85,7 +85,7 @@ class BlockchainExplorer {
       statusElement.innerText = `✅ Transaktion genomförd! TX-hash: ${transaction.hash}`;
       console.log('Transaktion skickad:', transaction);
     } catch (error) {
-      statusElement.innerText = '❌ Fel vid transaktion!';
+      statusElement.innerText = 'Fel vid transaktion!';
       console.error('Fel vid transaktion:', error);
     }
   }

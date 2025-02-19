@@ -1,11 +1,25 @@
-// 🔹 Skapa ett nytt HTML-element
-export const createElement = (elem) => {
-  return document.createElement(elem);
+export const createElement = (elem, attributes = {}) => {
+  if (typeof elem !== 'string' || !elem.trim()) {
+    console.error('Ogiltigt elementnamn:', elem);
+    return null;
+  }
+
+  const element = document.createElement(elem);
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    element.setAttribute(key, value);
+  });
+
+  return element;
 };
 
-// 🔹 Skapa ett nytt HTML-element med text
-export const createTextElement = (elem, text) => {
-  const element = document.createElement(elem);
-  element.appendChild(document.createTextNode(text));
+export const createTextElement = (elem, text = '', attributes = {}) => {
+  const element = createElement(elem, attributes);
+  if (!element) return null;
+
+  if (typeof text === 'string' && text.trim()) {
+    element.textContent = text;
+  }
+
   return element;
 };
