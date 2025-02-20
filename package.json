@@ -4,7 +4,7 @@
   "description": "Detta projekt är en frontend-applikation som konsumerar en Ethereum-blockkedja. Applikationen gör det möjligt att:",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "homepage": "https://github.com/NiklasNilsson79/Block-explorer#readme",
   "dependencies": {
     "ethers": "^6.13.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

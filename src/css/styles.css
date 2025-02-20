@@ -20,19 +20,19 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 2px;
   text-align: center;
-  color: #00eaff; /* Neonblå textfärg */
+  color: #00eaff;
 }
 
-/* ======= NAVBAR ======= */
+/* NAVBAR */
 nav {
-  background: rgba(10, 10, 30, 0.8); /* Mörk transparent blå */
+  background: rgba(10, 10, 30, 0.8);
   padding: 15px 0;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Neon glow-effekt */
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
   backdrop-filter: blur(10px);
 }
 
@@ -45,11 +45,11 @@ nav {
   padding: 0 20px;
 }
 
-/* ======= LOGO ======= */
+/*  LOGO  */
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: #00eaff; /* Neonblå text */
+  color: #00eaff;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -60,7 +60,7 @@ nav {
   text-shadow: 0 0 10px #00eaff;
 }
 
-/* ======= NAV-LÄNKAR ======= */
+/*  NAV-LÄNKAR */
 .nav-links {
   list-style: none;
   display: flex;
@@ -86,7 +86,7 @@ nav {
   text-shadow: 0 0 10px #00eaff;
 }
 
-/* ======= MOBIL-MENY KNAPP (☰) ======= */
+/*  MOBIL-MENY KNAPP (☰) */
 .menu-toggle {
   display: none;
   font-size: 28px;
@@ -94,7 +94,7 @@ nav {
   cursor: pointer;
 }
 
-/* ======= RESPONSIVITET ======= */
+/*  RESPONSIVITET  */
 @media (max-width: 768px) {
   .getBalance {
     max-width: 100%;
@@ -107,7 +107,7 @@ nav {
     max-width: 100%;
     width: 80%;
     margin-left: 20px;
-    word-break: break-word; /* Tvingar radbrytning */
+    word-break: break-word;
     overflow-wrap: break-word;
   }
   .nav-links {
@@ -131,7 +131,7 @@ nav {
   }
 }
 
-/* ======= SIDLAYOUT ======= */
+/*  SIDLAYOUT */
 .container {
   padding-top: 100px;
   display: flex;
@@ -143,7 +143,7 @@ nav {
   flex: 1;
 }
 
-/* ======= FORM OCH KNAPP ======= */
+/* FORM OCH KNAPP*/
 input {
   background-color: white;
   color: #212529;
@@ -175,7 +175,7 @@ button:hover {
   box-shadow: 0 0 10px #00eaff;
 }
 
-/* ======= RESULTAT OCH FELMEDDELANDEN ======= */
+/*  RESULTAT OCH FELMEDDELANDEN */
 p {
   margin-top: 10px;
   font-weight: bold;
@@ -220,20 +220,20 @@ p {
 
 /* Stil för footern */
 footer {
-  background: rgba(10, 10, 30, 0.8); /* Mörk transparent blå */
+  background: rgba(10, 10, 30, 0.8);
   color: #ffffff;
   text-align: center;
   padding: 20px 10px;
   position: sticky;
   width: 100%;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Neon glow-effekt */
-  backdrop-filter: blur(10px); /* Suddig glasliknande effekt */
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
   font-size: 14px;
   opacity: 0.9;
   margin-bottom: 0;
 }
 
-/* 🔹 Hero-sektion */
+/*Hero-sektion */
 .hero {
   position: relative;
   width: 100%;
@@ -261,7 +261,7 @@ footer {
   text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
 }
 
-/* 🔹 CTA-knapp */
+/* CTA-knapp */
 .cta-button {
   margin-top: 20px;
   padding: 12px 25px;
@@ -282,7 +282,7 @@ footer {
   box-shadow: 0px 0px 20px #00ffaa;
 }
 
-/* 🔹 Informationssektion */
+/* Informationssektion */
 .info-heading {
   text-align: center;
   font-size: 2rem;
