@@ -1,6 +1,6 @@
 html,
 body {
-  max-height: 300vh;
+  max-height: 370vh;
   margin: 0;
   padding: 0;
   display: flex;
@@ -21,6 +21,10 @@ h3 {
   letter-spacing: 2px;
   text-align: center;
   color: #00eaff;
+}
+
+h4 {
+  margin-bottom: 0;
 }
 
 /* NAVBAR */
@@ -175,7 +179,6 @@ button:hover {
   box-shadow: 0 0 10px #00eaff;
 }
 
-/*  RESULTAT OCH FELMEDDELANDEN */
 p {
   margin-top: 10px;
   font-weight: bold;
@@ -188,6 +191,13 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  margin-bottom: 20px;
+}
+
+.block-card ul {
+  list-style: none; /* Tar bort punkterna */
+  padding: 0; /* Tar bort eventuell extra indragning */
+  margin: 0; /* Tar bort standardmarginaler */
 }
 
 .amount {
@@ -216,6 +226,11 @@ p {
 
 .getBalance {
   width: 620px;
+}
+
+#balance {
+  margin-top: 40px;
+  font-size: larger;
 }
 
 /* Stil för footern */

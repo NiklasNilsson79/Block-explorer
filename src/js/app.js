@@ -31,7 +31,7 @@ class BlockchainExplorer {
 
     try {
       const blockNumber = await this.provider.getBlockNumber();
-      blockElement.innerText = `📦 Antal block i nätverket: ${blockNumber}`;
+      blockElement.innerText = `Antal block i nätverket: ${blockNumber}`;
     } catch (error) {
       blockElement.innerText = 'Fel vid hämtning av blocknummer!';
       console.error('Fel vid hämtning av blocknummer:', error);

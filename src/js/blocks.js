@@ -27,7 +27,8 @@ class BlockExplorer {
       for (let i = latestBlock; i >= startBlock; i--) {
         try {
           const block = await this.client.getBlock(i);
-          this.displayBlock(block);
+          const transactions = await this.getTransactions(block.transactions);
+          this.displayBlock(block, transactions);
         } catch (blockError) {
           console.error(`Fel vid hämtning av block #${i}:`, blockError);
         }
@@ -37,24 +38,62 @@ class BlockExplorer {
     }
   }
 
-  displayBlock(block) {
+  // Hämta detaljer om varje transaktion i blocket
+  async getTransactions(transactionHashes) {
+    const transactions = [];
+    for (const hash of transactionHashes) {
+      try {
+        const tx = await this.client.getTransaction(hash);
+        transactions.push(tx);
+      } catch (error) {
+        console.error(`Fel vid hämtning av transaktion ${hash}:`, error);
+      }
+    }
+    return transactions;
+  }
+
+  // Visa blockinformation samt transaktionsdetaljer
+  displayBlock(block, transactions) {
     const blockDiv = createElement('div');
     blockDiv.classList.add('block-card');
 
-    blockDiv.appendChild(createTextElement('h3', `Block #${block.number}`));
+    blockDiv.appendChild(createTextElement('h3', `📦 Block #${block.number}`));
     blockDiv.appendChild(
       createTextElement(
         'p',
         `⏳ Tid: ${new Date(block.timestamp * 1000).toLocaleString()}`
       )
     );
-    blockDiv.appendChild(createTextElement('p', `🔗 Hash: ${block.hash}`));
+    blockDiv.appendChild(
+      createTextElement('p', `🔗 Block Hash: ${block.hash}`)
+    );
     blockDiv.appendChild(
       createTextElement('p', `⛽ Gas limit: ${block.gasLimit}`)
     );
     blockDiv.appendChild(
       createTextElement('p', `🔥 Gas used: ${block.gasUsed}`)
     );
+
+    // Visa transaktioner
+    if (transactions.length > 0) {
+      blockDiv.appendChild(createTextElement('h4', '💸 Transaktioner:'));
+
+      const transactionsList = createElement('ul');
+      transactions.forEach((tx) => {
+        const txInfo = createElement('li');
+        txInfo.innerText = `
+        📤 Avsändare: ${tx.from} 
+        📥 Mottagare: ${tx.to || 'N/A'} 
+        🔗 Transaktionshash: ${tx.hash}`;
+        transactionsList.appendChild(txInfo);
+      });
+
+      blockDiv.appendChild(transactionsList);
+    } else {
+      blockDiv.appendChild(
+        createTextElement('p', 'Inga transaktioner i detta block.')
+      );
+    }
 
     this.blockList.appendChild(blockDiv);
   }
