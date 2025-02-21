@@ -124,3 +124,21 @@ npm run test:watch
 ---
 
 2025 Block Explorer – Ethereum Blockchain Viewer 🚀
+
+## 📸 Screenshots
+
+### 🏠 Start Page
+
+![Start Page](./src/Images/start-page.png)
+
+### 💰 Balance Page
+
+![Balance Page](./src/Images/balance-page.png)
+
+### 🔍 Transaction Page
+
+![Transaction Page](./src/Images/transfer-page.png)
+
+### 📊 Block History
+
+![Block History](./src/Images/block-page.png)
