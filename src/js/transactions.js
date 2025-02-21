@@ -7,7 +7,7 @@ class TransactionHandler {
     this.statusElement = document.querySelector(statusSelector);
 
     if (!this.form) {
-      console.error(`❌ Formuläret ${formSelector} hittades inte!`);
+      console.error(`Formuläret ${formSelector} hittades inte!`);
       return;
     }
 
@@ -26,10 +26,32 @@ class TransactionHandler {
 
     const sender = this.fromInput?.value.trim();
     const receiver = this.toInput?.value.trim();
-    const amount = this.valueInput?.value.trim();
+    let amount = this.valueInput?.value.trim();
 
-    if (!sender || !receiver || !amount) {
-      this.updateStatus('Fyll i alla fält!');
+    // Validera Ethereum-adresser
+    if (!ethers.isAddress(sender)) {
+      this.updateStatus('❌ Ogiltig avsändaradress! Kontrollera adressen.');
+      return;
+    }
+
+    if (!ethers.isAddress(receiver)) {
+      this.updateStatus('❌ Ogiltig mottagaradress! Kontrollera adressen.');
+      return;
+    }
+
+    // Kontrollera att beloppet har högst 2 decimaler
+    const decimalPlaces = amount.split('.')[1];
+    if (decimalPlaces && decimalPlaces.length > 2) {
+      this.updateStatus('❌ Endast 2 decimaler är tillåtna!');
+      return;
+    }
+
+    // Tillåt 2 decimaler
+    amount = parseFloat(amount).toFixed(2);
+
+    // Validering
+    if (!sender || !receiver || !amount || amount <= 0) {
+      this.updateStatus('❌ Fyll i alla fält med giltiga värden!');
       return;
     }
 
@@ -44,7 +66,7 @@ class TransactionHandler {
       // Skapa och skicka transaktionen
       const transaction = await signer.sendTransaction({
         to: receiver,
-        value: ethers.parseEther(amount),
+        value: ethers.parseEther(amount.toString()), // Konvertera till wei
       });
 
       this.updateStatus('⏳ Skickar transaktion... Vänta...');
@@ -60,7 +82,7 @@ class TransactionHandler {
         location.href = './blocks.html';
       }, 2000);
     } catch (error) {
-      this.updateStatus('Fel vid transaktion!');
+      this.updateStatus('❌ Fel vid transaktion! Kontrollera adresserna.');
       console.error('Fel vid transaktion:', error);
     }
   }

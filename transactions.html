@@ -31,7 +31,12 @@
       <form id="transaction-form">
         <input type="text" id="from" placeholder="Avsändaradress" required />
         <input type="text" id="to" placeholder="Mottagaradress" required />
-        <input type="number" id="value" placeholder="Belopp i ETH" required />
+        <input
+          type="text"
+          id="value"
+          placeholder="Belopp i ETH (max 2 decimaler)"
+          required />
+
         <button class="send-button" type="submit">Skicka</button>
       </form>
 

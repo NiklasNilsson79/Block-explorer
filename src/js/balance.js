@@ -26,7 +26,7 @@ class BalanceChecker {
     }
 
     if (!ethers.isAddress(address)) {
-      this.updateBalanceStatus('Ogiltig Ethereum-adress!');
+      this.updateBalanceStatus('❌ Ogiltig Ethereum-adress!');
       return;
     }
 
