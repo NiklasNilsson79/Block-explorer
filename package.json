@@ -4,7 +4,8 @@
   "description": "Detta projekt är en frontend-applikation som konsumerar en Ethereum-blockkedja. Applikationen gör det möjligt att:",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "vitest run",
+    "test:watch": "vitest watch"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
     "ethers": "^6.13.5"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jsdom": "^26.0.0",
+    "vitest": "^3.0.6"
   }
 }
